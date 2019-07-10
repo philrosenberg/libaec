@@ -39,13 +39,17 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 add_definitions("-DHAVE_CONFIG_H")
 
+if(WIN32)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif(WIN32)
+
 option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 if(BUILD_SHARED_LIBS)
   set (LIB_TYPE SHARED)
+  add_definitions(-DLIBAEC_BUILT_AS_DYNAMIC_LIB)
+  add_definitions(-DSZ_BUILT_AS_DYNAMIC_LIB)
+    message(WARNING "Building dynamic libraries. You must #define LIBAEC_BUILT_AS_DYNAMIC_LIB before #include<libaec.h> or #define SZ_BUILT_AS_DYNAMIC_LIB before #include<szlib.h> when using dynamic libs.")
 else(BUILD_SHARED_LIBS)
-  if(WIN32)
-    message(WARNING "You will have to modify libaec.h for static libs.")
-  endif(WIN32)
   set(LIB_TYPE STATIC)
 endif(BUILD_SHARED_LIBS)
 

@@ -56,12 +56,17 @@
 extern "C"{
 #endif
 
+
+#ifdef LIBAEC_BUILT_AS_DYNAMIC_LIB
 #if BUILDING_LIBAEC && HAVE_VISIBILITY
 #  define LIBAEC_DLL_EXPORTED __attribute__((__visibility__("default")))
 #elif BUILDING_LIBAEC && defined _MSC_VER
 #  define LIBAEC_DLL_EXPORTED __declspec(dllexport)
 #elif defined _MSC_VER
 #  define LIBAEC_DLL_EXPORTED __declspec(dllimport)
+#else
+#  define LIBAEC_DLL_EXPORTED
+#endif
 #else
 #  define LIBAEC_DLL_EXPORTED
 #endif

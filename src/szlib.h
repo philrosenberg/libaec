@@ -50,6 +50,14 @@
 #ifndef SZLIB_H
 #define SZLIB_H 1
 
+
+ //if using as a dynamic library then ensure the required LIBAEC #define is set
+#ifdef SZ_BUILT_AS_DYNAMIC_LIB
+#define LIBAEC_BUILT_AS_DYNAMIC_LIB
+#else
+#undef LIBAEC_BUILT_AS_DYNAMIC_LIB
+#endif
+
 #include <libaec.h>
 
 #define SZ_ALLOW_K13_OPTION_MASK 1
